@@ -46,6 +46,7 @@ function getAdoptionFee(animalName) {
     }
     return fees[index];
 }
+
 // Main program
 console.log("Welcome to the Pet Shelter System");
 while (true) {
@@ -55,17 +56,27 @@ while (true) {
         break;
     }
     if (action === "add") {
-        let animal = readlineSync.question("Enter the animal's name: ");
+       try{ let animal = readlineSync.question("Enter the animal's name: ");
         let fee = Number(readlineSync.question("Enter the adoption fee: "));
         addAnimal(animal, fee);
+
         console.log(`${animal} added with a fee of $${fee}.`);
+    } catch(err){
+        console.log("Error:", err.message);
+        }
     } else if (action === "fee") {
+        try{
         let animal = readlineSync.question("Enter the animal's name to find its adoption fee: ");
+        let fee = getAdoptionFee(animal);
         console.log(`${animal}'s adoption fee is $${getAdoptionFee(animal)}.`);
-    } else {
+    } catch(err) {
+        console.log("Error:", err.message);
+    }
+}else {
         console.log("Invalid action. Please choose 'add', 'fee', or 'exit'.");
     }
 }
+
 
 
 
